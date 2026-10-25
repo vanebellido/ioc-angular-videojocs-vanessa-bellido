@@ -1,1 +1,40 @@
-/* You can add global styles to this file, and also import other style files */
+/* Enllaç de salt accessible (amagat per defecte, visible en rebre el focus) */
+.skip-link {
+  position: absolute;
+  top: -999px;
+  left: 1rem;
+  background: #0056b3;
+  color: #ffffff;
+  padding: 0.6rem 1rem;
+  border-radius: 4px;
+  font-weight: 600;
+  text-decoration: none;
+  z-index: 1000;
+
+  &:focus {
+    top: 1rem;
+    outline: 3px solid #ffcc00;
+  }
+}
+
+/* Indicador de focus visible clar per a tota la interfície */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+a:focus-visible {
+  outline: 3px solid #0056b3 !important;
+  outline-offset: 2px !important;
+}
+
+/* Ocultar text visualment mantenint-lo per a lectors de pantalla */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
