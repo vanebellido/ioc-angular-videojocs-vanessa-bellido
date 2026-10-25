@@ -1,0 +1,22 @@
+<article class="targeta" [class.seleccionada]="seleccionada">
+  <header class="targeta-capcalera">
+    <app-etiqueta-element
+      [categoria]="element.categoria"
+      [destacat]="element.destacat ?? false"
+    />
+    <time [attr.datetime]="element.dataLlancament">
+      {{ element.dataLlancament | date:'dd/MM/yyyy' }}
+    </time>
+  </header>
+
+  <h3>{{ element.titol }}</h3>
+  <p>{{ element.descripcio }}</p>
+
+  <p class="valoracio">
+    <span class="etiqueta-camp">Puntuació:</span> {{ element.valoracio }} / 5
+  </p>
+
+  <button type="button" (click)="avisaSeleccio()">
+    Veure detall <span class="visually-hidden">de {{ element.titol }}</span>
+  </button>
+</article>

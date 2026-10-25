@@ -1,29 +1,67 @@
-<main class="main-container">
-  <header class="header">
-    <h1>{{ title }}</h1>
-    <p class="description">
-      Plataforma interactiva per a la gestió, catàleg i seguiment de videojocs clàssics i actuals.
-    </p>
-  </header>
+<a href="#contingut-principal" class="skip-link">Saltar al contingut principal</a>
 
-  <div class="content-layout">
-    <section class="card-section">
-      <article class="game-card">
-        <h2>Catàleg Destacat</h2>
-        <p>Explora novetats, puntuacions i fitxes completes dels millors títols del mercat.</p>
-        <div class="status-badge">Projecte base llest - Verificat en calent!</div>
-      </article>
+<header class="capcalera">
+  <h1>GameVault - Catàleg de Videojocs</h1>
+  <p>Unitat 2 - Components i interfície d'usuari (RA2)</p>
+</header>
+
+<main id="contingut-principal" class="contenidor">
+  <nav class="filtres-zona" aria-label="Filtres del catàleg">
+    <app-barra-filtres (filtresCanviats)="actualitzaFiltres($event)" />
+  </nav>
+
+  @if (carregant()) {
+    <section class="estat-carregant" aria-live="polite" aria-busy="true">
+      <div class="spinner" aria-hidden="true"></div>
+      <p>Carregant videojocs...</p>
     </section>
+  } @else {
+    <section class="resultats" aria-label="Resultats de videojocs">
+      <h2>
+        Catàleg
+        <span class="comptador" aria-live="polite">
+          {{ elementsFiltrats.length }} de {{ elements.length }}
+        </span>
+      </h2>
 
-    <aside class="sidebar">
-      <h3>Informació del Sistema</h3>
+      @if (filtresActuals.text || filtresActuals.categoria !== 'Totes') {
+        <p class="info-filtres">
+          Filtres actius:
+          @if (filtresActuals.text) { text «{{ filtresActuals.text }}» }
+          @if (filtresActuals.categoria !== 'Totes') { categoria {{ filtresActuals.categoria }} }
+        </p>
+      }
+
+      @if (elementsFiltrats.length > 0) {
+        <app-llista-elements
+          [elements]="elementsFiltrats"
+          [elementSeleccionatId]="elementSeleccionat?.id"
+          (selecciona)="seleccionaElement($event)"
+        />
+      } @else {
+        <div class="sense-resultats" role="status">
+          <p><strong>No s'ha trobat cap videojoc amb aquests filtres.</strong></p>
+          <p>Proveu un altre text o trieu la categoria «Totes».</p>
+        </div>
+      }
+    </section>
+  }
+
+  <aside class="detall" aria-live="polite" aria-label="Detall del videojoc">
+    <h2>Detall del Videojoc</h2>
+    @if (elementSeleccionat) {
+      <h3>{{ elementSeleccionat.titol }}</h3>
+      <p>{{ elementSeleccionat.descripcio }}</p>
       <ul>
-        <li>Versió: 1.0.0 (RA1)</li>
-        <li>Estat: Entorn configurat correctament</li>
-        <li>Temàtica: Videojocs</li>
+        <li><strong>Categoria:</strong> {{ elementSeleccionat.categoria }}</li>
+        <li><strong>Puntuació:</strong> {{ elementSeleccionat.valoracio }} / 5</li>
+        <li><strong>Data de llançament:</strong> {{ elementSeleccionat.dataLlancament | date:'dd/MM/yyyy' }}</li>
       </ul>
-    </aside>
-  </div>
+      <button type="button" (click)="tancaDetall()">Tanca el detall</button>
+    } @else {
+      <p>Seleccioneu un videojoc per veure'n el detall.</p>
+    }
+  </aside>
+</main>
 
-  <router-outlet />
-</main> 
+<router-outlet />

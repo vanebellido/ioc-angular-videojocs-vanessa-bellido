@@ -1,0 +1,7 @@
+<span class="etiqueta" [class.etiqueta-destacada]="destacat">
+  {{ categoria }}
+  @if (destacat) {
+    <span class="marca-destacat" aria-hidden="true">(Destacat)</span>
+    <span class="visually-hidden">Videojoc destacat</span>
+  }
+</span>

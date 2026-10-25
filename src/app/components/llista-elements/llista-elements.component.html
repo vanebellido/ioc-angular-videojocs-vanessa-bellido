@@ -1,0 +1,11 @@
+<section class="graella" aria-label="Llistat de videojocs">
+  @for (element of elements; track element.id) {
+    <app-targeta-element
+      [element]="element"
+      [seleccionada]="element.id === elementSeleccionatId"
+      (selecciona)="propagaSeleccio($event)"
+    />
+  } @empty {
+    <p class="missatge-buit" role="status">No hi ha videojocs per mostrar.</p>
+  }
+</section>

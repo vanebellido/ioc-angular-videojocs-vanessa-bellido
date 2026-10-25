@@ -1,0 +1,19 @@
+.graella {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.missatge-buit {
+  grid-column: 1 / -1;
+  padding: 3rem 1rem;
+  text-align: center;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .graella {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
